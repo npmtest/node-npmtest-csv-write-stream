@@ -1,5 +1,5 @@
 <html lang="en"><head>
-    <title>Code coverage report for node-npmtest-csv-write-stream/node_modules/csv-write-stream/bench.js</title>
+    <title>Code coverage report for node-npmtest-csv-write-stream/node_modules/csv-write-stream/cli.js</title>
     <meta charset="utf-8">
     <style>
         body, html {
@@ -192,23 +192,23 @@
     <h1 style="font-weight: bold;">
         <a href="https://github.com/npmtest/node-npmtest-csv-write-stream">npmtest-csv-write-stream (v0.0.1)</a>
     </h1>
-    <h1>Code coverage report for <span class="entity">node-npmtest-csv-write-stream/node_modules/csv-write-stream/bench.js</span></h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-csv-write-stream/node_modules/csv-write-stream/cli.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">100% <small>(12 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">100% <small>(11 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">100% <small>(2 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Lines: <span class="metric">100% <small>(11 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
-    <div class="path"><a href="../../../index.html">All files</a> » <a href="index.html">node-npmtest-csv-write-stream/node_modules/csv-write-stream/</a> » bench.js</div>
+    <div class="path"><a href="../../../index.html">All files</a> » <a href="index.html">node-npmtest-csv-write-stream/node_modules/csv-write-stream/</a> » cli.js</div>
 </div>
 <div class="body">
 <pre><table class="coverage">
@@ -237,11 +237,49 @@
 23
 24
 25
-26</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -250,48 +288,55 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1000001</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1000000</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var csv = require('./')
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//#!/usr/bin/env node
+var ArgumentParser = require('argparse').ArgumentParser
+var csv = require('./')
+var ndj = require('ndjson')
+var packageInfo = require('./package')
 &nbsp;
-var c = csv()
-var obj = {
-  hello: 'world',
-  hej: 'med dig',
-  lol: 'lulz',
-  nu: 'yolo'
-}
-&nbsp;
-var i = 0
-&nbsp;
-c.on('data', function(data) {
-  i++
+argparser = new ArgumentParser({
+  addHelp: true,
+  description: packageInfo.description + ' JSON is read from STDIN, formatted' +
+  ' to CSV, and written to STDOUT.',
+  version: packageInfo.version
 })
 &nbsp;
-c.on('end', function() {
-  console.log(i+' rows, time: '+(Date.now() - now))
+argparser.addArgument(['--separator'], {
+  help: "The separator character to use. Defaults to ','.",
+  defaultValue: ','
+})
+argparser.addArgument(['--newline'], {
+  help: "The newline character to use. Defaults to $'\\n'.",
+  defaultValue: '\n'
+})
+argparser.addArgument(['--headers'], {
+  nargs: '+',
+  help: 'The list of headers to use. If omitted, the keys of the first row ' +
+  'written to STDIN will be used',
+})
+argparser.addArgument(['--no-send-headers'], {
+  action: 'storeFalse',
+  help: "Don't print the header row.",
+  defaultValue: true,
+  dest: 'sendHeaders'
 })
 &nbsp;
-var now = Date.now()
+args = argparser.parseArgs()
 &nbsp;
-for (var i = 0; i &lt; 2000000; i++) c.write(obj)
-c.end()
+process.stdin
+  .pipe(ndj.parse())
+  .pipe(csv(args))
+  .pipe(process.stdout)
 &nbsp;
 &nbsp;</pre></td></tr>
 </tbody></table></pre>
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 18 2017 23:49:38 GMT+0000 (UTC)</div>
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Wed Apr 26 2017 03:42:05 GMT+0000 (UTC)</div>
 </div>
 
 
